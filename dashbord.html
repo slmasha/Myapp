@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: #1E40AF; /* bg-blue-500 */
+            color: white;
+            height: 100vh;
+            padding: 16px;
+        }
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .profile .avatar {
+            width: 48px;
+            height: 48px;
+            background-color: white;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .notifications {
+            background-color: white;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            color: #4B5563; /* text-gray-600 */
+        }
+        .notifications h2 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .notifications h2 svg {
+            margin-right: 8px;
+        }
+        .notifications ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .notifications ul li {
+            margin-bottom: 8px;
+        }
+        .notifications button {
+            background-color: #1E40AF; /* bg-blue-500 */
+            color: white;
+            font-weight: bold;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .notifications button:hover {
+            background-color: #1E3A8A; /* hover:bg-blue-700 */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+        }
+        .grid a {
+            text-decoration: none; /* Remove underline */
+        }
+        .grid button {
+            background-color: white;
+            padding: 16px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #D1D5DB; /* border-gray-300 */
+            color: #4B5563; /* text-gray-600 */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .grid button svg {
+            margin-bottom: 8px;
+        }
+        .grid button:hover {
+            background-color: #F3F4F6; /* hover:bg-gray-100 */
+            border-color: #E5E7EB; /* border-gray-200 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <div class="avatar"></div>
+            <span>Employee Name</span>
+        </div>
+        <div class="notifications">
+            <h2>
+                <!-- Bell icon -->
+                <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 22a2 2 0 0 1-2-2h4a2 2 0 0 1-2 2zm4-3H8v-6h8v6zM18 8c0-4.418-2.686-8-6-8S6 3.582 6 8c0 3.232 2.124 5.963 4.946 6.785V16h4v-1.215C15.876 13.963 18 11.232 18 8z"/></svg>
+                Notification
+            </h2>
+            <ul>
+                <li>* You have a special duty tomorrow.</li>
+                <li>* Your leave has been approved.</li>
+                <li>* You have to attend a course on 20.05.2024.</li>
+            </ul>
+            <button>See all</button>
+        </div>
+        <div class="grid">
+            <a href="entry-of-duty-hours.html">
+                <button>
+                    <!-- Clock icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 7v5l4 2"/></svg>
+                    Entry of Duty Hours
+                </button>
+            </a>
+            <a href="office-calendar.html">
+                <button>
+                    <!-- Calendar icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17 3V1h-2v2H9V1H7v2H5a1 1 0 0 0-1 1v17a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-2zM5 6h14v15H5V6z"/></svg>
+                    Office Calendar
+                </button>
+            </a>
+            <a href="leave-register.html">
+                <button>
+                    <!-- Clipboard icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 0 0-1 1v2H5a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3V3a1 1 0 0 0-1-1H9zm1 2h4v2H10V4zm-1 4h6v12H9V8zm2-2v2h2V6h-2zm0 8v2h2v-2h-2zm-2 2h2v-2H8v2z"/></svg>
+                    Leave Register
+                </button>
+            </a>
+            <a href="phone-book.html">
+                <button>
+                    <!-- Phone icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14.08 8.392l-2.69-.77a2.489 2.489 0 0 0-2.605.81L7.088 8.99a2.49 2.49 0 0 0-.85 2.616l1.012 2.682a2.493 2.493 0 0 0 1.759 1.36l1.837.615a2.495 2.495 0 0 0 2.39-.794l1.673-1.755a2.493 2.493 0 0 0 .442-2.665L15.98 10.49a2.493 2.493 0 0 0-1.898-1.353z"/></svg>
+                    Phone Book
+                </button>
+            </a>
+            <a href="calculator.html">
+                <button>
+                    <!-- Calculator icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15 12H9v-2h6v2zM11 16H9v-2h2v2zm-4-4h2v2H7v-2zm2-6h2v2h-2V6zm8-2H9v2h6V4zM6 1H4a1 1 0 0 0-1 1v2H1v17h3v-2a1 1 0 0 0 1-1v-1h10v1a1 1 0 0 0 1 1v2h3V4h-3V2a1 1 0 0 0-1-1zm10 16H7v-2h9v2zm-2-4H9v-2h5v2zm-4-4h2v2h-2v-2zm2-6h2v2h-2V4z"/></svg>
+                    Calculator
+                </button>
+            </a>
+            <a href="notices.html">
+                <button>
+                    <!-- Clipboard icon (notices) -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 2a1 1 0 0 0-1 1v2H5a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-3V3a1 1 0 0 0-1-1H9zm1 2h4v2H10V4zm-1 4h6v12H9V8zm2-2v2h2V6h-2zm0 8v2h2v-2h-2zm-2 2h2v-2H8v2z"/></svg>
+                    Notices
+                </button>
+            </a>
+            <a href="attendance.html">
+                <button>
+                    <!-- User icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm0 2a6 6 0 0 0-6 6v1h12v-1a6 6 0 0 0-6-6z"/></svg>
+                    Attendance
+                </button>
+            </a>
+            <a href="note-pad.html">
+                <button>
+                    <!-- Notebook icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M6 3H4a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h2V4h4v-1a1 1 0 0 0-1-1zm2 2h4v18H8V5zm8 0h2v18h-2V5zm-2 0h-4v18h4V5z"/></svg>
+                    Note Pad
+                </button>
+            </a>
+            <a href="settings.html">
+                <button>
+                    <!-- Settings icon -->
+                    <svg width="24" height="24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 15a3 3 0 1 1 3-3 3.003 3.003 0 0 1-3 3zm-7.2-.9a5.978 5.978 0 0 1 0-2.2l-1.6-1.6a1 1 0 0 1 0-1.4l2.2-2.2a5.978 5.978 0 0 1 2.2-1.6l1.6 1.6a1 1 0 0 1 1.4 0l2.2 2.2a5.978 5.978 0 0 1 1.6 2.2l1.6-1.6a1 1 0 0 1 1.4 0l2.2 2.2a1 1 0 0 1 0 1.4l-1.6 1.6a5.978 5.978 0 0 1 0 2.2l1.6 1.6a1 1 0 0 1 0 1.4l-2.2 2.2a5.978 5.978 0 0 1-2.2 1.6l-1.6-1.6a1 1 0 0 1-1.4 0l-2.2-2.2a5.978 5.978 0 0 1-1.6-2.2zm-6.8 4.4a1 1 0 0 1 1-1h1v-1a1 1 0 0 1 1-1h1v-2H3v2h1a1 1 0 0 1 1 1v1H3a1 1 0 0 1-1 1zm16 0a1 1 0 0 1 1-1h1v-1a1 1 0 0 1 1-1h1v-2h-4v2h1a1 1 0 0 1 1 1v1h-1a1 1 0 0 1-1 1z"/></svg>
+                    Settings
+                </button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

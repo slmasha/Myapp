@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Register</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+header {
+    background-color: #4a154b;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+}
+
+.form-section, .status-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #4a154b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #6b2c6c;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #4a154b;
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Leave Register</h1>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Apply for Leave</h2>
+            <form id="leaveForm">
+                <label for="employeeName">Employee Name:</label>
+                <input type="text" id="employeeName" name="employeeName" required>
+
+                <label for="leaveType">Leave Type:</label>
+                <select id="leaveType" name="leaveType">
+                    <option value="sick">Sick Leave</option>
+                    <option value="casual">Casual Leave</option>
+                    <option value="annual">Annual Leave</option>
+                </select>
+
+                <label for="startDate">Start Date:</label>
+                <input type="date" id="startDate" name="startDate" required>
+
+                <label for="endDate">End Date:</label>
+                <input type="date" id="endDate" name="endDate" required>
+
+                <label for="reason">Reason:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+
+                <button type="submit">Submit Leave Request</button>
+            </form>
+        </section>
+
+        <section class="status-section">
+            <h2>Leave Requests</h2>
+            <table id="leaveTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Leave Type</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Leave requests will be added here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script>
+document.getElementById('leaveForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const employeeName = document.getElementById('employeeName').value;
+    const leaveType = document.getElementById('leaveType').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const reason = document.getElementById('reason').value;
+
+    const tableBody = document.querySelector('#leaveTable tbody');
+    const row = document.createElement('tr');
+
+    row.innerHTML = `
+        <td>${employeeName}</td>
+        <td>${leaveType}</td>
+        <td>${startDate}</td>
+        <td>${endDate}</td>
+        <td>${reason}</td>
+    `;
+
+    tableBody.appendChild(row);
+
+    document.getElementById('leaveForm').reset();
+});
+
+
+    </script>
+</body>
+</html>

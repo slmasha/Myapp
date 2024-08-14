@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Book</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #4a154b;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        h1 {
+            margin: 0;
+        }
+        
+        main {
+            padding: 20px;
+        }
+        
+        .form-section, .search-section, .list-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        
+        h2 {
+            margin-top: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #4a154b;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        button:hover {
+            background-color: #6b2c6c;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        li:last-child {
+            border-bottom: none;
+        }
+        
+        .search-section input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Phone Book</h1>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Add Contact</h2>
+            <form id="contactForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="phone">Phone Number:</label>
+                <input type="text" id="phone" name="phone" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <button type="submit">Add Contact</button>
+            </form>
+        </section>
+
+        <section class="search-section">
+            <h2>Search Contacts</h2>
+            <input type="text" id="searchInput" placeholder="Search by name or phone number">
+        </section>
+
+        <section class="list-section">
+            <h2>Contact List</h2>
+            <ul id="contactList">
+                <!-- Contacts will be listed here -->
+            </ul>
+        </section>
+    </main>
+    <script>
+
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+
+    const contactList = document.getElementById('contactList');
+    const li = document.createElement('li');
+    li.innerHTML = `<strong>${name}</strong> - ${phone} - ${email}`;
+
+    contactList.appendChild(li);
+
+    document.getElementById('contactForm').reset();
+});
+
+document.getElementById('searchInput').addEventListener('input', function(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const contacts = document.querySelectorAll('#contactList li');
+
+    contacts.forEach(contact => {
+        const text = contact.textContent.toLowerCase();
+        if (text.includes(searchTerm)) {
+            contact.style.display = '';
+        } else {
+            contact.style.display = 'none';
+        }
+    });
+});
+
+    </script>
+</body>
+</html>

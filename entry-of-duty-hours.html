@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Duty Time Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #4B0082; /* Dark Purple */
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .input-group input, .input-group select {
+            width: calc(100% - 16px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #FFA07A; /* Light Orange */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button:hover {
+            background-color: #FF8C00; /* Darker Orange */
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result p {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        .yesterday-day {
+            background-color: #FFFFE0; /* Light Yellow */
+            color: #003366; /* Dark Blue */
+        }
+        .yesterday-night {
+            background-color: #FFFFE0; /* Light Yellow */
+            color: #8B0000; /* Dark Red */
+        }
+        .today-day {
+            background-color: #ADD8E6; /* Light Blue */
+            color: #003366; /* Dark Blue */
+        }
+        .today-night {
+            background-color: #ADD8E6; /* Light Blue */
+            color: #8B0000; /* Dark Red */
+        }
+        .total {
+            background-color: #FFCCCB; /* Light Pink */
+            color: #000000; /* Dark Black */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Duty Time Calculator</h2>
+        <div class="input-group">
+            <label for="start-time">Duty Start Time:</label>
+            <input type="time" id="start-time" required>
+        </div>
+        <div class="input-group">
+            <label for="end-time">Duty End Time:</label>
+            <input type="time" id="end-time" required>
+        </div>
+        <div class="input-group">
+            <label for="start-day">Start Day:</label>
+            <select id="start-day">
+                <option value="today">Today</option>
+                <option value="yesterday">Yesterday</option>
+            </select>
+        </div>
+        <button onclick="calculateDutyTime()">Calculate</button>
+        <div class="result" id="result">
+            <!-- Results will be displayed here -->
+        </div>
+    </div>
+
+    <script>
+        function calculateDutyTime() {
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+            const startDay = document.getElementById('start-day').value;
+
+            if (!startTime || !endTime) {
+                alert("Please enter both start and end times.");
+                return;
+            }
+
+            const startHour = parseInt(startTime.split(':')[0]);
+            const startMinute = parseInt(startTime.split(':')[1]);
+            const endHour = parseInt(endTime.split(':')[0]);
+            const endMinute = parseInt(endTime.split(':')[1]);
+
+            const startDate = new Date();
+            const endDate = new Date();
+
+            if (startDay === 'yesterday') {
+                startDate.setDate(startDate.getDate() - 1);
+            }
+
+            startDate.setHours(startHour, startMinute, 0, 0);
+            endDate.setHours(endHour, endMinute, 0, 0);
+
+            if (endDate < startDate) {
+                endDate.setDate(endDate.getDate() + 1);
+            }
+
+            let totalDayDutyYesterday = 0;
+            let totalNightDutyYesterday = 0;
+            let totalDayDutyToday = 0;
+            let totalNightDutyToday = 0;
+
+            const oneDayInMs = 24 * 60 * 60 * 1000;
+
+            function calculateDutyForDay(start, end) {
+                let dayDuty = 0;
+                let nightDuty = 0;
+
+                const dayStart = new Date(start);
+                const dayEnd = new Date(start);
+                dayStart.setHours(6, 0, 0, 0);
+                dayEnd.setHours(21, 0, 0, 0);
+
+                if (start < dayStart) {
+                    nightDuty += (Math.min(dayStart, end) - start) / (1000 * 60 * 60);
+                }
+
+                if (end > dayEnd) {
+                    nightDuty += (end - Math.max(dayEnd, start)) / (1000 * 60 * 60);
+                }
+
+                if (start < dayEnd && end > dayStart) {
+                    dayDuty += (Math.min(dayEnd, end) - Math.max(dayStart, start)) / (1000 * 60 * 60);
+                }
+
+                return { dayDuty, nightDuty };
+            }
+
+            if (startDay === 'yesterday') {
+                const yesterdayEndDay = new Date(startDate);
+                yesterdayEndDay.setHours(21, 0, 0, 0);
+
+                const yesterdayEndNight = new Date(yesterdayEndDay);
+                yesterdayEndNight.setHours(30, 0, 0, 0);
+
+                if (startDate < yesterdayEndDay) {
+                    totalDayDutyYesterday += (Math.min(yesterdayEndDay, endDate) - startDate) / (1000 * 60 * 60);
+                }
+                if (endDate > yesterdayEndDay) {
+                    totalNightDutyYesterday += (Math.min(yesterdayEndNight, endDate) - Math.max(yesterdayEndDay, startDate)) / (1000 * 60 * 60);
+                }
+
+                if (endDate > yesterdayEndNight) {
+                    const todayStart = new Date(yesterdayEndNight);
+                    const todayEndDay = new Date(todayStart);
+                    todayEndDay.setHours(21, 0, 0, 0);
+
+                    totalDayDutyToday += (Math.min(todayEndDay, endDate) - todayStart) / (1000 * 60 * 60);
+                    if (endDate > todayEndDay) {
+                        totalNightDutyToday += (endDate - todayEndDay) / (1000 * 60 * 60);
+                    }
+                }
+            } else {
+                const todayEndDay = new Date(startDate);
+                todayEndDay.setHours(21, 0, 0, 0);
+
+                if (startDate < todayEndDay) {
+                    totalDayDutyToday += (Math.min(todayEndDay, endDate) - startDate) / (1000 * 60 * 60);
+                }
+                if (endDate > todayEndDay) {
+                    totalNightDutyToday += (endDate - todayEndDay) / (1000 * 60 * 60);
+                }
+            }
+
+            const totalHours = totalDayDutyYesterday + totalNightDutyYesterday + totalDayDutyToday + totalNightDutyToday;
+
+            let resultHTML = '';
+
+            if (totalDayDutyYesterday > 0) {
+                resultHTML += `<p class="yesterday-day">Yesterday Day Duty Time: ${totalDayDutyYesterday.toFixed(2)} hours</p>`;
+            }
+            if (totalNightDutyYesterday > 0) {
+                resultHTML += `<p class="yesterday-night">Yesterday Night Duty Time: ${totalNightDutyYesterday.toFixed(2)} hours</p>`;
+            }
+            if (totalDayDutyToday > 0) {
+                resultHTML += `<p class="today-day">Today Day Duty Time: ${totalDayDutyToday.toFixed(2)} hours</p>`;
+            }
+            if (totalNightDutyToday > 0) {
+                resultHTML += `<p class="today-night">Today Night Duty Time: ${totalNightDutyToday.toFixed(2)} hours</p>`;
+            }
+            if (totalHours > 0) {
+                resultHTML += `<p class="total">Total Duty Time: ${totalHours.toFixed(2)} hours</p>`;
+            }
+
+            document.getElementById('result').innerHTML = resultHTML;
+        }
+    </script>
+</body>
+</html>
